@@ -99,7 +99,8 @@ class QEMUBridge {
         }
 
         // Launch QEMU (blocks until VM exits)
-        var cArgs = cArgv.map { Optional($0) }
+        var cArgs = cArgv
+        cArgs.append(nil)
         qemu_ios_main(Int32(argv.count), &cArgs)
     }
 
