@@ -1,0 +1,24 @@
+Description: iOS signal compatibility fixes
+ iOS restricts certain signals (SIGBUS alt-stack, SIGUSR1/2 reuse).
+ This patch stubs out the incompatible signal handlers so QEMU builds
+ and runs correctly on iOS without crashing during init.
+Author: DroidPhone Project
+---
+--- a/util/oslib-posix.c
++++ b/util/oslib-posix.c
+@@ -60,6 +60,14 @@ static void sigbus_handler(int signal, siginfo_t *siginfo, void *ctx)
+ 
+ void os_setup_signal_handling(void)
+ {
++#ifdef IOS_BUILD
++    /*
++     * iOS does not support alternate signal stacks (sigaltstack) and
++     * restricts SIGBUS handling. Skip platform-specific signal setup.
++     */
++    signal(SIGPIPE, SIG_IGN);
++    return;
++#endif
++
+     struct sigaction action;
+     memset(&action, 0, sizeof(action));
+     sigfillset(&action.sa_mask);

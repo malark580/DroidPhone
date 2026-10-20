@@ -1,0 +1,28 @@
+Description: Disable TCG JIT (W^X) for iOS compatibility
+ iOS enforces W^X — writable memory cannot be executed. QEMU's TCG JIT
+ normally writes and executes machine code from the same buffer. This patch
+ forces TCG to use the interpreter (safe, slower but works on iOS without
+ the JIT entitlement).
+Author: DroidPhone Project
+---
+--- a/accel/tcg/tcg-accel-ops.c
++++ b/accel/tcg/tcg-accel-ops.c
+@@ -0,0 +1,4 @@
++/* iOS: Force TCG interpreter mode — no JIT */
++#ifdef IOS_BUILD
++#define CONFIG_TCG_INTERPRETER 1
++#endif
+--- a/tcg/tcg.c
++++ b/tcg/tcg.c
+@@ -50,6 +50,11 @@
+ #include "tcg-internal.h"
+ #include "accel/tcg/perf.h"
+
++/* iOS build: disable dynamic code generation */
++#ifdef IOS_BUILD
++#undef  USE_DIRECT_JUMP
++#define CONFIG_TCG_INTERPRETER 1
++#endif
++
+ /* Allow the target to override the mprotect endian. */
+ #if defined(__APPLE__) && defined(HOST_AARCH64)

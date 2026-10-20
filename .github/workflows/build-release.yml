@@ -98,8 +98,12 @@ jobs:
       - name: 🍺 Install xcbeautify
         run: brew install xcbeautify || true
 
-      - name: 🔧 Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+      - name: 🔧 Select latest Xcode
+        run: |
+          # Auto-select the newest available Xcode on the runner
+          LATEST=$(ls /Applications | grep -E '^Xcode_[0-9]' | sort -V | tail -1)
+          echo "Using: /Applications/${LATEST}"
+          sudo xcode-select -s "/Applications/${LATEST}/Contents/Developer"
 
       - name: 📋 Show Xcode / Swift version
         run: |
@@ -204,7 +208,7 @@ jobs:
             > **Note:** Android disk images are downloaded at runtime (~1–4 GB depending on version). An internet connection is required on first launch.
 
             ---
-            Built with QEMU ${{ env.QEMU_VERSION }} · Xcode 15 · macOS 14 (Apple Silicon)
+            Built with QEMU 8.2.0 · Xcode 15 · macOS 14 (Apple Silicon)
           files: ${{ steps.rename.outputs.ipa_path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

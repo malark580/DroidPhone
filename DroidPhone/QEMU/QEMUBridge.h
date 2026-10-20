@@ -1,4 +1,4 @@
-// QEMUBridge.h
+// QEMUBridge.h  (also installed as qemu_ios_backend.h inside QEMU source tree)
 // DroidPhone — C interface declarations for libqemu-ios
 
 #pragma once

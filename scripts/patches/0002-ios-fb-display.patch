@@ -1,0 +1,78 @@
+Description: Add ios-fb display backend for DroidPhone
+ Registers a minimal "ios-fb" display backend that calls our
+ qemu_ios_blit_frame() C callback instead of opening any window.
+Author: DroidPhone Project
+---
+--- a/ui/meson.build
++++ b/ui/meson.build
+@@ -10,6 +10,7 @@ softmmu_ss.add(files(
+   'console.c',
+   'cursor.c',
+   'qemu-pixman.c',
++  'ios-fb.c',
+ ))
+--- /dev/null
++++ b/ui/ios-fb.c
+@@ -0,0 +1,60 @@
++/*
++ * DroidPhone iOS framebuffer display backend
++ * Bridges QEMU's display system to our iOS Metal renderer via callback.
++ */
++#include "qemu/osdep.h"
++#include "ui/console.h"
++#include "qapi/error.h"
++#include "qemu_ios_backend.h"
++
++typedef struct {
++    DisplaySurface *surface;
++} IOSFBState;
++
++static void ios_fb_update(DisplayChangeListener *dcl,
++                          int x, int y, int w, int h)
++{
++    IOSFBState *s = container_of(dcl, IOSFBState, dcl);
++    DisplaySurface *surf = s->surface;
++    if (!surf) return;
++
++    uint32_t width  = surface_width(surf);
++    uint32_t height = surface_height(surf);
++    qemu_ios_blit_frame(surface_data(surf), width, height);
++}
++
++static void ios_fb_switch(DisplayChangeListener *dcl, DisplaySurface *new_surface)
++{
++    IOSFBState *s = container_of(dcl, IOSFBState, dcl);
++    s->surface = new_surface;
++}
++
++static void ios_fb_refresh(DisplayChangeListener *dcl)
++{
++    graphic_hw_update(dcl->con);
++}
++
++static const DisplayChangeListenerOps ios_fb_ops = {
++    .dpy_name        = "ios-fb",
++    .dpy_gfx_update  = ios_fb_update,
++    .dpy_gfx_switch  = ios_fb_switch,
++    .dpy_refresh     = ios_fb_refresh,
++};
++
++static void ios_fb_display_init(DisplayState *ds, DisplayOptions *opts,
++                                Error **errp)
++{
++    IOSFBState *s = g_new0(IOSFBState, 1);
++    DisplayChangeListener *dcl = g_new0(DisplayChangeListener, 1);
++    dcl->ops = &ios_fb_ops;
++    register_displaychangelistener(dcl);
++}
++
++static const DisplayType ios_fb_display_type = {
++    .name       = "ios-fb",
++    .init       = ios_fb_display_init,
++};
++
++static void ios_fb_register(void)
++{
++    register_display_type(&ios_fb_display_type);
++}
++type_init(ios_fb_register);
