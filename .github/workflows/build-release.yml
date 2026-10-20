@@ -1,0 +1,224 @@
+name: 🤖 Build & Release DroidPhone IPA
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Triggers
+# ─────────────────────────────────────────────────────────────────────────────
+on:
+  push:
+    tags:
+      - "v*.*.*"          # e.g.  v1.0.0  →  triggers a release
+  workflow_dispatch:      # manual trigger from GitHub UI
+    inputs:
+      version:
+        description: "Version tag (e.g. v1.0.0)"
+        required: true
+        default: "v1.0.0"
+      prerelease:
+        description: "Mark as pre-release?"
+        type: boolean
+        default: false
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Permissions
+# ─────────────────────────────────────────────────────────────────────────────
+permissions:
+  contents: write   # needed to create GitHub Releases and upload assets
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Jobs
+# ─────────────────────────────────────────────────────────────────────────────
+jobs:
+
+  # ══════════════════════════════════════════════════════════════════════════
+  # Job 1 — Build QEMU for iOS (arm64)
+  # This step is cached aggressively so it only rebuilds when QEMU version
+  # or patches change (saves ~25 min of build time on subsequent runs).
+  # ══════════════════════════════════════════════════════════════════════════
+  build-qemu:
+    name: 🔨 Build QEMU for iOS
+    runs-on: macos-14          # Apple M-series runner (arm64, Xcode 15)
+    timeout-minutes: 90
+
+    env:
+      QEMU_VERSION: "8.2.0"
+
+    outputs:
+      cache-hit: ${{ steps.cache-qemu.outputs.cache-hit }}
+
+    steps:
+      - name: ⬇ Checkout
+        uses: actions/checkout@v4
+
+      - name: 📦 Cache QEMU static library
+        id: cache-qemu
+        uses: actions/cache@v4
+        with:
+          path: DroidPhone/QEMU/lib
+          key: qemu-ios-${{ env.QEMU_VERSION }}-${{ hashFiles('scripts/patches/**') }}
+          restore-keys: |
+            qemu-ios-${{ env.QEMU_VERSION }}-
+
+      - name: 🍺 Install build dependencies
+        if: steps.cache-qemu.outputs.cache-hit != 'true'
+        run: |
+          brew install ninja pixman glib pkg-config meson xcbeautify || true
+
+      - name: 🏗 Build QEMU for iOS
+        if: steps.cache-qemu.outputs.cache-hit != 'true'
+        run: |
+          chmod +x scripts/build_qemu_ios.sh
+          ./scripts/build_qemu_ios.sh
+
+      - name: 📤 Upload libqemu-ios.a artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libqemu-ios
+          path: DroidPhone/QEMU/lib/
+          retention-days: 1
+
+  # ══════════════════════════════════════════════════════════════════════════
+  # Job 2 — Build Xcode project and package IPA
+  # ══════════════════════════════════════════════════════════════════════════
+  build-ipa:
+    name: 📱 Build DroidPhone.ipa
+    needs: build-qemu
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - name: ⬇ Checkout
+        uses: actions/checkout@v4
+
+      - name: 📥 Download libqemu-ios.a
+        uses: actions/download-artifact@v4
+        with:
+          name: libqemu-ios
+          path: DroidPhone/QEMU/lib/
+
+      - name: 🍺 Install xcbeautify
+        run: brew install xcbeautify || true
+
+      - name: 🔧 Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+
+      - name: 📋 Show Xcode / Swift version
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: 🏗 Archive
+        run: |
+          xcodebuild archive \
+            -project DroidPhone.xcodeproj \
+            -scheme  DroidPhone \
+            -configuration Release \
+            -archivePath "${{ runner.temp }}/DroidPhone.xcarchive" \
+            -destination "generic/platform=iOS" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            SWIFT_COMPILATION_MODE=wholemodule \
+            GCC_OPTIMIZATION_LEVEL=s \
+            | xcbeautify
+
+      - name: 📦 Export IPA (unsigned / ad-hoc)
+        run: |
+          mkdir -p "${{ runner.temp }}/ipa"
+
+          cat > "${{ runner.temp }}/ExportOptions.plist" <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+            "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>ad-hoc</string>
+              <key>compileBitcode</key>
+              <false/>
+              <key>signingStyle</key>
+              <string>manual</string>
+              <key>stripSwiftSymbols</key>
+              <true/>
+              <key>thinning</key>
+              <string>&lt;none&gt;</string>
+          </dict>
+          </plist>
+          PLIST
+
+          xcodebuild -exportArchive \
+            -archivePath "${{ runner.temp }}/DroidPhone.xcarchive" \
+            -exportPath  "${{ runner.temp }}/ipa" \
+            -exportOptionsPlist "${{ runner.temp }}/ExportOptions.plist" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: 🗜 Rename IPA with version
+        id: rename
+        run: |
+          VERSION="${{ github.ref_name }}"
+          [ -z "${VERSION}" ] && VERSION="${{ github.event.inputs.version }}"
+          [ -z "${VERSION}" ] && VERSION="v0.0.0-dev"
+          IPA_NAME="DroidPhone-${VERSION}.ipa"
+          mv "${{ runner.temp }}/ipa/DroidPhone.ipa" "${{ runner.temp }}/ipa/${IPA_NAME}"
+          echo "ipa_name=${IPA_NAME}" >> "$GITHUB_OUTPUT"
+          echo "ipa_path=${{ runner.temp }}/ipa/${IPA_NAME}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: 📤 Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DroidPhone-IPA
+          path: ${{ steps.rename.outputs.ipa_path }}
+          retention-days: 7
+
+      # ── Publish to GitHub Releases (runs on tag push OR manual dispatch) ──
+      - name: 🚀 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name:   ${{ steps.rename.outputs.version }}
+          name:       "DroidPhone ${{ steps.rename.outputs.version }}"
+          prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+          generate_release_notes: true
+          body: |
+            ## 🤖 DroidPhone ${{ steps.rename.outputs.version }}
+
+            Android emulator for iPhone — powered by QEMU.
+
+            ### Supported Android Versions
+            | Version | API | Codename |
+            |---------|-----|----------|
+            | 4.4 | 19 | KitKat |
+            | 5.1 | 22 | Lollipop |
+            | 6.0 | 23 | Marshmallow |
+            | 7.1 | 25 | Nougat |
+            | 8.1 | 27 | Oreo |
+            | 9.0 | 28 | Pie |
+            | 10  | 29 | Q |
+            | 11  | 30 | R |
+
+            ### Installation
+            1. Download `DroidPhone-${{ steps.rename.outputs.version }}.ipa` below
+            2. Sideload with **AltStore**, **Sideloadly**, or **TrollStore**
+            3. On first launch, pick an Android version and download its image
+
+            > **Note:** Android disk images are downloaded at runtime (~1–4 GB depending on version). An internet connection is required on first launch.
+
+            ---
+            Built with QEMU ${{ env.QEMU_VERSION }} · Xcode 15 · macOS 14 (Apple Silicon)
+          files: ${{ steps.rename.outputs.ipa_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ══════════════════════════════════════════════════════════════════════════
+  # Job 3 — Notify (optional summary)
+  # ══════════════════════════════════════════════════════════════════════════
+  notify:
+    name: ✅ Release Summary
+    needs: build-ipa
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Print result
+        run: |
+          echo "Build status: ${{ needs.build-ipa.result }}"
+          echo "IPA published to GitHub Releases ✅"

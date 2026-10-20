@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Increased memory limit (needed for Android VMs with 2+ GB RAM) -->
+	<key>com.apple.developer.kernel.increased-memory-limit</key>
+	<true/>
+
+	<!--
+	  JIT entitlement (optional — requires Apple developer approval).
+	  When present, QEMU can use hardware-accelerated translation (HVF on Apple Silicon)
+	  for dramatically faster emulation. Without it, TCG (software) mode is used.
+	-->
+	<!-- <key>dynamic-codesigning</key> -->
+	<!-- <true/> -->
+</dict>
+</plist>

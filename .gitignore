@@ -1,0 +1,13 @@
+.DS_Store
+build/
+*.xcarchive
+*.ipa
+DroidPhone/QEMU/lib/
+*.o
+*.a
+*.dSYM
+Pods/
+.swiftpm/
+xcuserdata/
+*.xcuserstate
+DerivedData/
