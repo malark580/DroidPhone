@@ -132,8 +132,10 @@
 				AA0000000000000000000081 /* Frameworks */,
 				AA0000000000000000000082 /* Resources */,
 			);
-			buildRules = ();
-			dependencies = ();
+			buildRules = (
+			);
+			dependencies = (
+			);
 			name = DroidPhone;
 			productName = DroidPhone;
 			productReference = AA0000000000000000000097 /* DroidPhone.app */;
@@ -158,12 +160,17 @@
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (en, Base);
+			knownRegions = (
+				en,
+				Base,
+			);
 			mainGroup = AA0000000000000000000070;
 			productRefGroup = AA0000000000000000000075;
 			projectDirPath = "";
 			projectRoot = "";
-			targets = (AA0000000000000000000098 /* DroidPhone */);
+			targets = (
+				AA0000000000000000000098 /* DroidPhone */,
+			);
 		};
 /* End PBXProject section */
 
@@ -171,7 +178,8 @@
 		AA0000000000000000000082 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = ();
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -209,7 +217,10 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (DEBUG=1, "$(inherited)");
+				GCC_PREPROCESSOR_DEFINITIONS = (
+				"DEBUG=1",
+				"$(inherited)",
+			);
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -256,9 +267,18 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = DroidPhone/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
-				LIBRARY_SEARCH_PATHS = ("$(PROJECT_DIR)/DroidPhone/QEMU/lib", "$(inherited)");
-				HEADER_SEARCH_PATHS = ("$(PROJECT_DIR)/DroidPhone/QEMU", "$(inherited)");
+				LD_RUNPATH_SEARCH_PATHS = (
+				"$(inherited)",
+				"@executable_path/Frameworks",
+			);
+				LIBRARY_SEARCH_PATHS = (
+				"$(PROJECT_DIR)/DroidPhone/QEMU/lib",
+				"$(inherited)",
+			);
+				HEADER_SEARCH_PATHS = (
+				"$(PROJECT_DIR)/DroidPhone/QEMU",
+				"$(inherited)",
+			);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.droidphone.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -280,9 +300,18 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = DroidPhone/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
-				LIBRARY_SEARCH_PATHS = ("$(PROJECT_DIR)/DroidPhone/QEMU/lib", "$(inherited)");
-				HEADER_SEARCH_PATHS = ("$(PROJECT_DIR)/DroidPhone/QEMU", "$(inherited)");
+				LD_RUNPATH_SEARCH_PATHS = (
+				"$(inherited)",
+				"@executable_path/Frameworks",
+			);
+				LIBRARY_SEARCH_PATHS = (
+				"$(PROJECT_DIR)/DroidPhone/QEMU/lib",
+				"$(inherited)",
+			);
+				HEADER_SEARCH_PATHS = (
+				"$(PROJECT_DIR)/DroidPhone/QEMU",
+				"$(inherited)",
+			);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.droidphone.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -298,13 +327,19 @@
 /* Begin XCConfigurationList section */
 		AACF00000000000000000005 /* Build configuration list for PBXProject */ = {
 			isa = XCConfigurationList;
-			buildConfigurations = (AACF00000000000000000001 /* Debug */, AACF00000000000000000002 /* Release */);
+			buildConfigurations = (
+				AACF00000000000000000001 /* Debug */,
+				AACF00000000000000000002 /* Release */,
+			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		AACF00000000000000000006 /* Build configuration list for PBXNativeTarget */ = {
 			isa = XCConfigurationList;
-			buildConfigurations = (AACF00000000000000000003 /* Debug */, AACF00000000000000000004 /* Release */);
+			buildConfigurations = (
+				AACF00000000000000000003 /* Debug */,
+				AACF00000000000000000004 /* Release */,
+			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};

@@ -91,6 +91,10 @@ jobs:
           xcodebuild -version
           swift --version
 
+      - name: 🔍 Validate Xcode Project Syntax
+        run: |
+          plutil -lint DroidPhone.xcodeproj/project.pbxproj
+
       - name: 🏗 Archive DroidPhone
         run: |
           xcodebuild archive \
