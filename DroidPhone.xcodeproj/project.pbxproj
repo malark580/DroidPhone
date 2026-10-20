@@ -189,7 +189,6 @@
 				AA000005 /* QEMUBridge.swift in Sources */,
 				AA000006 /* FramebufferRenderer.swift in Sources */,
 				AA000007 /* EmulatorToolbar.swift in Sources */,
-				AA000008 /* qemu_ios_backend.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +264,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.droidphone.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "DroidPhone/QEMU/QEMUBridge.h";
 				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -289,6 +288,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.droidphone.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "DroidPhone/QEMU/QEMUBridge.h";
 				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

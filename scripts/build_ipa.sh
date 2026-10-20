@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # scripts/build_ipa.sh
-# Build DroidPhone.ipa for distribution (no-signing / ad-hoc)
+# Build DroidPhone.ipa for distribution (no-signing / ad-hoc sideloading)
 
 set -euo pipefail
 
@@ -11,7 +11,14 @@ EXPORT_PATH="build/ipa"
 
 echo "==> Building DroidPhone IPA"
 
+# ── Ensure libqemu-ios.a exists ───────────────────────────────────────────────
+if [ ! -f "DroidPhone/QEMU/lib/libqemu-ios.a" ]; then
+    echo "--> libqemu-ios.a not found; building engine library first..."
+    ./scripts/build_qemu_ios.sh
+fi
+
 # ── Archive ───────────────────────────────────────────────────────────────────
+echo "--> Creating Xcode Archive..."
 xcodebuild archive \
     -project "${PROJECT}" \
     -scheme  "${SCHEME}" \
@@ -23,36 +30,24 @@ xcodebuild archive \
     CODE_SIGNING_ALLOWED=NO \
     | xcbeautify || true
 
-# ── Export IPA ────────────────────────────────────────────────────────────────
-mkdir -p "${EXPORT_PATH}"
+# ── Export IPA (Payload zip packaging for AltStore/TrollStore/Sideloadly) ──────
+echo "--> Packaging IPA for sideloading..."
+rm -rf "${EXPORT_PATH}"
+mkdir -p "${EXPORT_PATH}/Payload"
 
-# Create export options plist (ad-hoc, no signing)
-cat > build/ExportOptions.plist <<'PLIST'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>method</key>
-    <string>ad-hoc</string>
-    <key>compileBitcode</key>
-    <false/>
-    <key>signingStyle</key>
-    <string>manual</string>
-    <key>stripSwiftSymbols</key>
-    <true/>
-    <key>thinning</key>
-    <string>&lt;none&gt;</string>
-</dict>
-</plist>
-PLIST
+APP_PATH=$(find "${ARCHIVE_PATH}/Products/Applications" -name "*.app" -maxdepth 1 | head -n 1)
+if [ -z "${APP_PATH}" ]; then
+    echo "❌ Error: Could not locate built .app bundle in ${ARCHIVE_PATH}"
+    exit 1
+fi
 
-xcodebuild -exportArchive \
-    -archivePath "${ARCHIVE_PATH}" \
-    -exportPath  "${EXPORT_PATH}" \
-    -exportOptionsPlist build/ExportOptions.plist \
-    CODE_SIGN_IDENTITY="" \
-    CODE_SIGNING_REQUIRED=NO
+echo "    Copying ${APP_PATH} -> ${EXPORT_PATH}/Payload/"
+cp -r "${APP_PATH}" "${EXPORT_PATH}/Payload/"
+
+cd "${EXPORT_PATH}"
+zip -qry "DroidPhone.ipa" Payload
+rm -rf Payload
 
 echo ""
-echo "✅ IPA → ${EXPORT_PATH}/DroidPhone.ipa"
+echo "✅ IPA created successfully:"
+ls -lh "DroidPhone.ipa"
