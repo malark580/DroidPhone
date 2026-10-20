@@ -103,8 +103,7 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             SWIFT_COMPILATION_MODE=wholemodule \
-            GCC_OPTIMIZATION_LEVEL=s \
-            | xcbeautify
+            GCC_OPTIMIZATION_LEVEL=s
 
       - name: 📦 Package IPA for Sideloading (AltStore / TrollStore / Sideloadly)
         run: |

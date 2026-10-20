@@ -7,117 +7,116 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100001; };
-		AA000002 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100002; };
-		AA000003 /* EmulatorLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100003; };
-		AA000004 /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100004; };
-		AA000005 /* QEMUBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100005; };
-		AA000006 /* FramebufferRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100006; };
-		AA000007 /* EmulatorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA100007; };
-		AA000008 /* qemu_ios_backend.c in Sources */ = {isa = PBXBuildFile; fileRef = AA100008; };
-		AA000009 /* libqemu-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA100009; };
-		AA000010 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA100010; };
-		AA000011 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA100011; };
-		AA000012 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA100012; };
-		AA000013 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA100013; };
+		AA0000000000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000001; };
+		AA0000000000000000000002 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000002; };
+		AA0000000000000000000003 /* EmulatorLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000003; };
+		AA0000000000000000000004 /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000004; };
+		AA0000000000000000000005 /* QEMUBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000005; };
+		AA0000000000000000000006 /* FramebufferRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000006; };
+		AA0000000000000000000007 /* EmulatorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000007; };
+		AA0000000000000000000009 /* libqemu-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000009; };
+		AA0000000000000000000010 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000010; };
+		AA0000000000000000000011 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000011; };
+		AA0000000000000000000012 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000012; };
+		AA0000000000000000000013 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000013; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA100001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AA100002 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		AA100003 /* EmulatorLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorLaunchViewController.swift; sourceTree = "<group>"; };
-		AA100004 /* EmulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
-		AA100005 /* QEMUBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEMUBridge.swift; sourceTree = "<group>"; };
-		AA100006 /* FramebufferRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramebufferRenderer.swift; sourceTree = "<group>"; };
-		AA100007 /* EmulatorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorToolbar.swift; sourceTree = "<group>"; };
-		AA100008 /* qemu_ios_backend.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qemu_ios_backend.c; sourceTree = "<group>"; };
-		AA100009 /* libqemu-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libqemu-ios.a"; sourceTree = "<group>"; };
-		AA100010 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		AA100011 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		AA100012 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		AA100013 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		AAPROD01 /* DroidPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroidPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAPLIST1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AAENTITL /* DroidPhone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroidPhone.entitlements; sourceTree = "<group>"; };
+		AA1000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA1000000000000000000002 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		AA1000000000000000000003 /* EmulatorLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorLaunchViewController.swift; sourceTree = "<group>"; };
+		AA1000000000000000000004 /* EmulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
+		AA1000000000000000000005 /* QEMUBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QEMUBridge.swift; sourceTree = "<group>"; };
+		AA1000000000000000000006 /* FramebufferRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramebufferRenderer.swift; sourceTree = "<group>"; };
+		AA1000000000000000000007 /* EmulatorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorToolbar.swift; sourceTree = "<group>"; };
+		AA1000000000000000000008 /* qemu_ios_backend.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qemu_ios_backend.c; sourceTree = "<group>"; };
+		AA1000000000000000000009 /* libqemu-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libqemu-ios.a"; sourceTree = "<group>"; };
+		AA1000000000000000000010 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		AA1000000000000000000011 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		AA1000000000000000000012 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AA1000000000000000000013 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		AA0000000000000000000097 /* DroidPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroidPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0000000000000000000096 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA0000000000000000000095 /* DroidPhone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroidPhone.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AABLD001 /* Frameworks */ = {
+		AA0000000000000000000081 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA000009 /* libqemu-ios.a in Frameworks */,
-				AA000010 /* MetalKit.framework in Frameworks */,
-				AA000011 /* Metal.framework in Frameworks */,
-				AA000012 /* UIKit.framework in Frameworks */,
-				AA000013 /* CoreVideo.framework in Frameworks */,
+				AA0000000000000000000009 /* libqemu-ios.a in Frameworks */,
+				AA0000000000000000000010 /* MetalKit.framework in Frameworks */,
+				AA0000000000000000000011 /* Metal.framework in Frameworks */,
+				AA0000000000000000000012 /* UIKit.framework in Frameworks */,
+				AA0000000000000000000013 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AAGRP000 /* DroidPhone */ = {
+		AA0000000000000000000070 /* DroidPhone */ = {
 			isa = PBXGroup;
 			children = (
-				AAGRPSRC /* Sources */,
-				AAGRPQMU /* QEMU */,
-				AAGRPRES /* Resources */,
-				AAGRPFWK /* Frameworks */,
-				AAGRPPRD /* Products */,
+				AA0000000000000000000071 /* Sources */,
+				AA0000000000000000000072 /* QEMU */,
+				AA0000000000000000000073 /* Resources */,
+				AA0000000000000000000074 /* Frameworks */,
+				AA0000000000000000000075 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		AAGRPSRC /* Sources */ = {
+		AA0000000000000000000071 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				AA100001 /* AppDelegate.swift */,
-				AA100002 /* HomeViewController.swift */,
-				AA100003 /* EmulatorLaunchViewController.swift */,
-				AA100004 /* EmulatorViewController.swift */,
-				AA100005 /* QEMUBridge.swift */,
-				AA100006 /* FramebufferRenderer.swift */,
-				AA100007 /* EmulatorToolbar.swift */,
+				AA1000000000000000000001 /* AppDelegate.swift */,
+				AA1000000000000000000002 /* HomeViewController.swift */,
+				AA1000000000000000000003 /* EmulatorLaunchViewController.swift */,
+				AA1000000000000000000004 /* EmulatorViewController.swift */,
+				AA1000000000000000000005 /* QEMUBridge.swift */,
+				AA1000000000000000000006 /* FramebufferRenderer.swift */,
+				AA1000000000000000000007 /* EmulatorToolbar.swift */,
 			);
 			name = Sources;
 			path = DroidPhone/Sources;
 			sourceTree = "<group>";
 		};
-		AAGRPQMU /* QEMU */ = {
+		AA0000000000000000000072 /* QEMU */ = {
 			isa = PBXGroup;
 			children = (
-				AA100008 /* qemu_ios_backend.c */,
-				AA100009 /* libqemu-ios.a */,
+				AA1000000000000000000008 /* qemu_ios_backend.c */,
+				AA1000000000000000000009 /* libqemu-ios.a */,
 			);
 			name = QEMU;
 			path = DroidPhone/QEMU;
 			sourceTree = "<group>";
 		};
-		AAGRPRES /* Resources */ = {
+		AA0000000000000000000073 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AAPLIST1 /* Info.plist */,
-				AAENTITL /* DroidPhone.entitlements */,
+				AA0000000000000000000096 /* Info.plist */,
+				AA0000000000000000000095 /* DroidPhone.entitlements */,
 			);
 			name = Resources;
 			path = DroidPhone/Resources;
 			sourceTree = "<group>";
 		};
-		AAGRPFWK /* Frameworks */ = {
+		AA0000000000000000000074 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA100010 /* MetalKit.framework */,
-				AA100011 /* Metal.framework */,
-				AA100012 /* UIKit.framework */,
-				AA100013 /* CoreVideo.framework */,
+				AA1000000000000000000010 /* MetalKit.framework */,
+				AA1000000000000000000011 /* Metal.framework */,
+				AA1000000000000000000012 /* UIKit.framework */,
+				AA1000000000000000000013 /* CoreVideo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AAGRPPRD /* Products */ = {
+		AA0000000000000000000075 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AAPROD01 /* DroidPhone.app */,
+				AA0000000000000000000097 /* DroidPhone.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,51 +124,51 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AATARGET /* DroidPhone */ = {
+		AA0000000000000000000098 /* DroidPhone */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AACFGLIST;
+			buildConfigurationList = AACF00000000000000000006;
 			buildPhases = (
-				AABLD000 /* Sources */,
-				AABLD001 /* Frameworks */,
-				AABLD002 /* Resources */,
+				AA0000000000000000000080 /* Sources */,
+				AA0000000000000000000081 /* Frameworks */,
+				AA0000000000000000000082 /* Resources */,
 			);
 			buildRules = ();
 			dependencies = ();
 			name = DroidPhone;
 			productName = DroidPhone;
-			productReference = AAPROD01 /* DroidPhone.app */;
+			productReference = AA0000000000000000000097 /* DroidPhone.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		AAPROJECT /* Project object */ = {
+		AA0000000000000000000099 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					AATARGET = {
+					AA0000000000000000000098 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = AACFGLISTP;
+			buildConfigurationList = AACF00000000000000000005;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (en, Base);
-			mainGroup = AAGRP000;
-			productRefGroup = AAGRPPRD;
+			mainGroup = AA0000000000000000000070;
+			productRefGroup = AA0000000000000000000075;
 			projectDirPath = "";
 			projectRoot = "";
-			targets = (AATARGET /* DroidPhone */);
+			targets = (AA0000000000000000000098 /* DroidPhone */);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AABLD002 /* Resources */ = {
+		AA0000000000000000000082 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = ();
@@ -178,24 +177,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		AABLD000 /* Sources */ = {
+		AA0000000000000000000080 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA000001 /* AppDelegate.swift in Sources */,
-				AA000002 /* HomeViewController.swift in Sources */,
-				AA000003 /* EmulatorLaunchViewController.swift in Sources */,
-				AA000004 /* EmulatorViewController.swift in Sources */,
-				AA000005 /* QEMUBridge.swift in Sources */,
-				AA000006 /* FramebufferRenderer.swift in Sources */,
-				AA000007 /* EmulatorToolbar.swift in Sources */,
+				AA0000000000000000000001 /* AppDelegate.swift in Sources */,
+				AA0000000000000000000002 /* HomeViewController.swift in Sources */,
+				AA0000000000000000000003 /* EmulatorLaunchViewController.swift in Sources */,
+				AA0000000000000000000004 /* EmulatorViewController.swift in Sources */,
+				AA0000000000000000000005 /* QEMUBridge.swift in Sources */,
+				AA0000000000000000000006 /* FramebufferRenderer.swift in Sources */,
+				AA0000000000000000000007 /* EmulatorToolbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		AACFG_D /* Debug */ = {
+		AACF00000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -221,7 +220,7 @@
 			};
 			name = Debug;
 		};
-		AACFG_R /* Release */ = {
+		AACF00000000000000000002 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -246,7 +245,7 @@
 			};
 			name = Release;
 		};
-		AACFGT_D /* Debug - Target */ = {
+		AACF00000000000000000003 /* Debug - Target */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -270,7 +269,7 @@
 			};
 			name = Debug;
 		};
-		AACFGT_R /* Release - Target */ = {
+		AACF00000000000000000004 /* Release - Target */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -297,20 +296,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AACFGLISTP /* Build configuration list for PBXProject */ = {
+		AACF00000000000000000005 /* Build configuration list for PBXProject */ = {
 			isa = XCConfigurationList;
-			buildConfigurations = (AACFG_D /* Debug */, AACFG_R /* Release */);
+			buildConfigurations = (AACF00000000000000000001 /* Debug */, AACF00000000000000000002 /* Release */);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AACFGLIST /* Build configuration list for PBXNativeTarget */ = {
+		AACF00000000000000000006 /* Build configuration list for PBXNativeTarget */ = {
 			isa = XCConfigurationList;
-			buildConfigurations = (AACFGT_D /* Debug */, AACFGT_R /* Release */);
+			buildConfigurations = (AACF00000000000000000003 /* Debug */, AACF00000000000000000004 /* Release */);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 	};
-	rootObject = AAPROJECT /* Project object */;
+	rootObject = AA0000000000000000000099 /* Project object */;
 }
