@@ -25,6 +25,16 @@ struct QEMUConfig {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// MARK: - C Callback Bridge
+// ─────────────────────────────────────────────────────────────────────────────
+
+private weak var g_activeQEMUBridge: QEMUBridge?
+
+private func globalFramebufferCallback(pixels: UnsafeRawPointer?, width: UInt32, height: UInt32) {
+    g_activeQEMUBridge?.handleFrame(pixels: pixels, width: Int(width), height: Int(height))
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // MARK: - QEMUBridge
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -93,10 +103,9 @@ class QEMUBridge {
         let cArgv = argv.map { strdup($0) }
         defer { cArgv.forEach { free($0) } }
 
-        // Install our framebuffer callback
-        qemu_ios_set_framebuffer_callback { [weak self] (pixels, width, height) in
-            self?.handleFrame(pixels: pixels, width: Int(width), height: Int(height))
-        }
+        // Install our C framebuffer callback via global bridge
+        g_activeQEMUBridge = self
+        qemu_ios_set_framebuffer_callback(globalFramebufferCallback)
 
         // Launch QEMU (blocks until VM exits)
         var cArgs = cArgv
@@ -167,7 +176,7 @@ class QEMUBridge {
 
     // MARK: - Frame Handler
 
-    private func handleFrame(pixels: UnsafeRawPointer?, width: Int, height: Int) {
+    fileprivate func handleFrame(pixels: UnsafeRawPointer?, width: Int, height: Int) {
         guard let pixels = pixels, let pb = pixelBuffer else { return }
         CVPixelBufferLockBaseAddress(pb, [])
         if let base = CVPixelBufferGetBaseAddress(pb) {
